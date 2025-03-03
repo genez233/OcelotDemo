@@ -7,13 +7,32 @@
         {
           "Host": "192.168.1.33",
           "Port": 5001
+        },
+        {
+          "Host": "192.168.1.33",
+          "Port": 5002
         }
       ],
       "UpstreamPathTemplate": "/user/{everything}", // API ���ر�¶��·��
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}", // Ŀ������·��
+      "DownstreamScheme": "http", // Ŀ������Э�飨�� http �� https��
+      "DownstreamHostAndPorts": [ // Ŀ�����������Ͷ˿�
+        {
+          "Host": "192.168.1.33",
+          "Port": 5010
+        }
+      ],
+      "UpstreamPathTemplate": "/blog/{everything}", // API ���ر�¶��·��
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://localhost:5000", // 网关的基础 URL
+    "LoadBalancerOptions": { // 负载均衡配置
+      "Type": "RoundRobin" // 负载均衡类型（如 RoundRobin、LeastConnection）
+    }
   }
 }
